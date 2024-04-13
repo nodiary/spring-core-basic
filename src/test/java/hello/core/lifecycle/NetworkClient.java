@@ -1,10 +1,8 @@
 package hello.core.lifecycle;
 
-import org.springframework.beans.factory.InitializingBean;
 
-import javax.security.auth.Destroyable;
 
-public class NetworkClient implements InitializingBean, Destroyable {
+public class NetworkClient {
     private String url;
 
     public NetworkClient(){
@@ -27,13 +25,13 @@ public class NetworkClient implements InitializingBean, Destroyable {
         System.out.println("close = " + url);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    public void init() {
+        System.out.println("NetworkClient.init");
         connect();
         call("초기화 연결 메시지");
     }
-    @Override
-    public void destroy() {
+    public void close() {
+        System.out.println("NetworkClient.close");
         disconnect();
     }
 }
